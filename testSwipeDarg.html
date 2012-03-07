@@ -1,0 +1,220 @@
+<!doctype html>
+
+<head>
+ 
+<style>
+	#makeMeDraggable { width: 300px; height: 300px; background: red; }
+	#draggableHelper { width: 300px; height: 300px; background: yellow; }
+	#makeMeDroppable { float: right; width: 300px; height: 300px; border: 1px solid #999; }
+</style>
+
+
+<link rel="stylesheet" href="style1.css">
+ 
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.0/jquery.min.js"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.9/jquery-ui.min.js"></script>
+<script type="text/javascript">
+ 
+$( init );
+ 
+function init() {
+
+  $('#makeMeDraggable').draggable( {
+    containment: 'document',
+    cursor: 'move',
+    snap: '#content',
+    //helper: myHelper,
+    //stop: handleDragStop
+  } );
+
+  $('#makeMeDroppable').droppable( {
+    drop: handleDropEvent
+  } );
+}
+
+function myHelper( event ) {
+  return '<div id="draggableHelper">I am a helper - drag me!</div>';
+}
+
+function handleDragStop( event, ui ) {
+  var offsetXPos = parseInt( ui.offset.left );
+  var offsetYPos = parseInt( ui.offset.top );
+  if(offsetxPos > 520){
+	//document.getElementById('makeMeDraggable').src = '';
+	alert("reached");
+  }
+  //alert( "Drag stopped!\n\nOffset: (" + offsetXPos + ", " + offsetYPos + ")\n");
+}
+
+function handleDropEvent( event, ui ) {
+  var draggable = ui.draggable;
+  alert( 'The square with ID "' + draggable.attr('id') + '" was dropped onto me!' );
+}
+
+
+</script>
+
+<script>
+
+$(document).ready(function(){
+		
+	$(document).mousedown(function(e){
+		
+		if(e.pageY>400){
+	
+			var mousePos1 = e.pageX;
+		
+			$('#status1').html(mousePos1);
+		}
+    }); 
+	
+	var pos = 0;
+
+	$(document).mouseup(function(e){
+
+
+
+		if(e.pageY>400){
+
+		var mousePos2 = e.pageX;
+
+
+		$('#status2').html(mousePos2);
+
+
+		var status1 = $('#status1').text();
+
+		var status2 = $('#status2').text();
+
+
+		var dif = status2 - status1;
+
+
+		
+		
+		if(dif>0){
+			var dir = 'right';
+			
+			if(pos>0){
+			pos--;
+			}
+			else{
+			
+			}
+			
+			slideToLeft(291*pos);
+		}
+		else{
+			var dir = 'left';
+			
+			
+			var marginLeft = $('#slides').css('margin-left');
+			if(pos > 4){
+			
+			}
+			else{
+			pos++;
+			slideToLeft(291*pos);
+			}
+			
+		}
+		}
+		
+		$('#dir').html(dir);
+    }); 
+	
+	function slideToLeft(slidePos) {
+	
+	$('#slides').animate({
+		marginLeft: '-' + slidePos,
+	});
+	
+	}
+	
+	function slideToRight(slidePos) {
+	
+	$('#slides').animate({
+		marginLeft: slidePos,
+	});
+	
+	}
+	
+	
+		
+	});
+ 
+</script>
+ 
+</head>
+
+<body>
+
+
+<h1>Drag and Swipe Example</h1>
+
+<p>The green shirts drag.  The clothing swipes.</p>
+
+<img id="makeMeDraggable" src="agd_soccer.jpg" width="304" height="228" /> 
+<div id="makeMeDroppable"> </div>
+
+
+<div id="status1"></div>
+<div id="status2"></div>
+<div id="dir"></div>
+
+<div id="gallery">
+
+
+<div id="slides">
+
+
+	<section class="slide" id="slide1">
+
+	<img src="testPolo2.png">
+
+	</section>
+
+
+	<section class="slide" id="slide2">
+
+		<img src="testPolo2.png">
+
+	</section>
+
+
+	<section class="slide" id="slide3">
+
+		<img src="testJeans.jpg">
+
+	</section>
+
+
+	<section class="slide" id="slide4">
+
+		<img src="testJeans.jpg">
+
+	</section>
+
+
+	<section class="slide" id="slide5">
+
+		<img src="testPants.jpg">
+
+	</section>
+
+
+	<section class="slide" id="slide6">
+
+		<img src="testHoodie.jpg">
+
+	</section>
+
+</div>
+
+</div>
+
+
+
+</body>
+
+</html> 

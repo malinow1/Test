@@ -1,0 +1,218 @@
+<!DOCTYPE html> 
+<html> 
+<head> 
+	<title>My Digital Dresser</title> 
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1"> 
+	
+	<!--Style sheet for layout of page-->
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.0b3/jquery.mobile-1.0b3.min.css" />
+
+	<!--Style sheet that creates slides to swipe-->
+	<link rel="stylesheet" href="style.css">
+
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.6.3.min.js"></script>
+	<script type="text/javascript" src="http://code.jquery.com/mobile/1.0b3/jquery.mobile-1.0b3.min.js"></script>
+	
+	<script>	
+		
+		//coordinates the swiping of the clothing apparel
+		$(document).ready(function(){
+
+			var pants = 0; // keeps track of if swiping pants or shirts
+			var start = 0;
+			var end = 0;
+		
+			$(document).mousedown(function(e){
+	
+				start = e.pageX;
+
+				//determines if swiping for new pants or shirt depending on y coordinate of mouse down
+				//ToDo: need to switch to either true/false or reverse 1s and 0s to make more sense
+				if(e.pageY > 280){
+					 pants = 0;
+				}
+				else{
+					 pants = 1;
+				}
+				$('#pants').html(pants);
+				
+		    	}); 
+			
+			//pos represents what picture we are on
+			//used to limit it so we don't swipe past the end
+			var posPants = 0;
+			var posShirts = 0;
+
+			$(document).mouseup(function(e){
+
+				end = e.pageX;
+				var dif = end - start;
+			
+				//determines direction of the swipe
+				if(dif>0){
+					
+					var dir = 'right';
+					
+					if(pants==0 && posPants>0){
+						posPants--;
+						slideToLeft(120*posPants);
+					}
+					if(pants==1 && posShirts>0){
+						posShirts--;
+						slideToLeft(120*posShirts);
+					}
+		
+				}
+
+				else{
+					var dir = 'left';
+					var marginLeft = $('#slides1').css('margin-left');
+					var marginLeft = $('#slides2').css('margin-left');
+
+					if(pants == 0 && posPants < 6){
+						posPants++;
+						slideToLeft(120*posPants);
+					}
+					if(pants == 1 && posShirts < 6){
+						posShirts++;
+						slideToLeft(120*posShirts);
+					}
+		
+		
+				}
+
+		    	}); 
+	
+			//makes the image swipe left or right depending on value of slidePos
+			function slideToLeft(slidePos) {
+				
+				//slides shirts
+				if(pants == 1){
+					$('#slides1').animate({
+						marginLeft: '-' + slidePos,
+					});
+				}
+				//slides pants
+				else{
+					$('#slides2').animate({
+						marginLeft: '-' + slidePos,
+					});
+				}
+	
+			}
+	
+		});
+	   	
+
+	</script>
+
+</head> 
+
+<body> 
+
+	<div data-role="page" id="home">
+	
+		<div data-role="header">
+
+			<h1>My Digital Dresser</h1>
+
+		</div><!-- /header -->
+
+		<div data-role="content">
+			
+			<!-- shirts-->
+			<div id="gallery">
+			<div id="slides1">
+
+				<section class="slide" id="slide1">
+					<img src="Images/shirts1.jpg">
+				</section>
+
+
+				<section class="slide" id="slide2">
+					<img src="Images/shirts2.jpg">
+				</section>
+
+
+				<section class="slide" id="slide3">
+					<img src="Images/shirts3.jpg">
+				</section>
+
+
+				<section class="slide" id="slide4">
+					<img src="Images/shirts4.jpg">
+				</section>
+
+
+				<section class="slide" id="slide5">
+					<img src="Images/shirts5.jpg">
+				</section>
+
+
+				<section class="slide" id="slide6">
+					<img src="Images/shirts6.jpg">
+				</section>
+
+				<section class="slide" id="slide7">
+					<img src="Images/shirts7.jpg">
+				</section>
+
+			</div>
+			</div>
+
+			<!-- pants-->
+			<div id="gallery">
+			<div id="slides2">
+
+				<section class="slide" id="slide1">
+					<img src="Images/pants1.jpg">
+				</section>
+
+
+				<section class="slide" id="slide2">
+					<img src="Images/pants2.jpg">
+				</section>
+
+
+				<section class="slide" id="slide3">
+					<img src="Images/pants3.jpg">
+				</section>
+
+
+				<section class="slide" id="slide4">
+					<img src="Images/pants4.jpg">
+				</section>
+
+
+				<section class="slide" id="slide5">
+					<img src="Images/pants5.jpg">
+				</section>
+
+
+				<section class="slide" id="slide6">
+					<img src="Images/pants6.jpg">
+				</section>
+
+				<section class="slide" id="slide7">
+					<img src="Images/pants7.jpg">
+				</section>
+
+			</div>
+			</div>
+
+		</div><!-- /content -->
+
+		<div data-role="footer">
+
+			<h4>Match Item Page</h4>
+
+		</div><!-- /footer -->
+
+	</div><!-- /page -->
+
+	
+
+</body>
+</html>
+
